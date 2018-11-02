@@ -1,2 +1,2 @@
 # python_training
-Python for QA
+Repository for Python for QA
