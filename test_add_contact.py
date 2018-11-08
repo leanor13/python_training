@@ -14,16 +14,17 @@ class ContactCreation(unittest.TestCase):
         self.accept_next_alert = True
     
     def test_contact_creation(self):
-        wd = self.driver
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.add_contact(wd, Contact(first_name="Test Contact", middle_name="Tes_midd", last_name="T", nick_name="L"))
         self.logout(wd)
 
     def logout(self, wd):
+        wd = self.driver
         wd.find_element_by_link_text("Logout").click()
 
     def add_contact(self, wd, Contact):
+        wd = self.driver
         # click on add new
         wd.find_element_by_link_text("add new").click()
         # fill in form
@@ -43,6 +44,7 @@ class ContactCreation(unittest.TestCase):
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
     def login(self, driver, username, password):
+        wd = self.driver
         driver.find_element_by_name("user").click()
         driver.find_element_by_name("user").clear()
         driver.find_element_by_name("user").send_keys(username)
@@ -51,6 +53,7 @@ class ContactCreation(unittest.TestCase):
         driver.find_element_by_xpath("//input[@value='Login']").click()
 
     def open_home_page(self, driver):
+        wd = self.driver
         driver.get("http://localhost/addressbook/index.php")
 
     def is_element_present(self, how, what):
