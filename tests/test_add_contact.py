@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
 
+
 def test_contact_creation(app):
     app.open_home_page()
     app.session.login(username="admin", password="secret")
