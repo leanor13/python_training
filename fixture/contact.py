@@ -7,7 +7,10 @@ class ContactHelper:
 
     def open_contacts_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        wd = self.app.wd
+        if not (wd.current_url.endswith("index.php") and len(wd.find_elements_by_link_text("Last name")) > 0
+                and len(wd.find_elements_by_link_text("All phones")) > 0):
+            wd.find_element_by_link_text("home").click()
 
     def fill_form(self, Contact):
         # fill in form
