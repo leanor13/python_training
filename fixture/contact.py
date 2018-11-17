@@ -8,7 +8,6 @@ class ContactHelper:
 
     def open_contacts_page(self):
         wd = self.app.wd
-        wd = self.app.wd
         if not (wd.current_url.endswith("index.php") and len(wd.find_elements_by_link_text("Last name")) > 0
                 and len(wd.find_elements_by_link_text("All phones")) > 0):
             wd.find_element_by_link_text("home").click()
@@ -61,15 +60,15 @@ class ContactHelper:
         self.open_contacts_page()
         return len(wd.find_elements_by_xpath("//img[@alt='Edit']"))
 
-# need to fix
     def get_contact_list(self):
         wd = self.app.wd
         self.open_contacts_page()
         contact_list = []
-        for element in wd.find_elements_by_xpath("//img[@alt='Edit']"):
-            text = element.text
+        for element in wd.find_elements_by_css_selector("tr[name]"):
+            text = element.find_element_by_name("selected[]").get_attribute("title")
             id = element.find_element_by_name("selected[]").get_attribute("value")
-            contact_list.append(Contact(last_name=text, contact_id=id))
+            contact_list.append(Contact(full_name=text, contact_id=id))
+        return contact_list
 
 
 
