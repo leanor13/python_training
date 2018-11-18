@@ -64,10 +64,13 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contacts_page()
         contact_list = []
-        for element in wd.find_elements_by_css_selector("tr[name]"):
-            text = element.find_element_by_name("selected[]").get_attribute("title")
+        # надо понять как выбирать каждый отдельный last_name
+        for element in wd.find_elements_by_css_selector("tr[name=entry]"):
+            last_name = wd.find_element_by_css_selector("td:nth-child(2)").get_attribute("innerText")
+            first_name = wd.find_element_by_css_selector("td:nth-child(3)").get_attribute("innerText")
+#            text = element.find_element_by_name("selected[]").get_attribute("title")
             id = element.find_element_by_name("selected[]").get_attribute("value")
-            contact_list.append(Contact(full_name=text, contact_id=id))
+            contact_list.append(Contact(first_name=first_name, last_name=last_name, contact_id=id))
         return contact_list
 
 
