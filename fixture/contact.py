@@ -66,8 +66,8 @@ class ContactHelper:
         contact_list = []
         # надо понять как выбирать каждый отдельный last_name
         for element in wd.find_elements_by_css_selector("tr[name=entry]"):
-            last_name = wd.find_element_by_css_selector("td:nth-child(2)").get_attribute("innerText")
-            first_name = wd.find_element_by_css_selector("td:nth-child(3)").get_attribute("innerText")
+            last_name = element.find_element_by_css_selector("td:nth-child(2)").get_attribute("innerText")
+            first_name = element.find_element_by_css_selector("td:nth-child(3)").get_attribute("innerText")
 #            text = element.find_element_by_name("selected[]").get_attribute("title")
             id = element.find_element_by_name("selected[]").get_attribute("value")
             contact_list.append(Contact(first_name=first_name, last_name=last_name, contact_id=id))
