@@ -12,12 +12,12 @@ class ContactHelper:
                 and len(wd.find_elements_by_link_text("All phones")) > 0):
             wd.find_element_by_link_text("home").click()
 
-    def fill_form(self, Contact):
+    def fill_form(self, contact):
         # fill in form
-        self.change_field_value("firstname", Contact.first_name)
-        self.change_field_value("middlename", Contact.middle_name)
-        self.change_field_value("lastname", Contact.last_name)
-        self.change_field_value("nickname", Contact.nick_name)
+        self.change_field_value("firstname", contact.first_name)
+        self.change_field_value("middlename", contact.middle_name)
+        self.change_field_value("lastname", contact.last_name)
+        self.change_field_value("nickname", contact.nick_name)
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
@@ -26,12 +26,12 @@ class ContactHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
-    def create(self, Contact):
+    def create(self, contact):
         wd = self.app.wd
         self.open_contacts_page()
         # click on add new
         wd.find_element_by_link_text("add new").click()
-        self.fill_form(Contact)
+        self.fill_form(contact)
         # submit form
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
         self.contact_cache = None
@@ -53,22 +53,22 @@ class ContactHelper:
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
 
-    def edit_contact_by_index(self, index, Contact):
+    def edit_contact_by_index(self, index, contact):
         wd = self.app.wd
         self.open_contacts_page()
         # press Edit for contact by index
         wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
-        self.fill_form(Contact)
+        self.fill_form(contact)
         wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
         self.open_contacts_page()
         self.contact_cache = None
 
-    def edit_first_contact(self, Contact):
+    def edit_first_contact(self, contact):
         wd = self.app.wd
         self.open_contacts_page()
         # select first contact
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        self.fill_form(Contact)
+        self.fill_form(contact)
         wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
         self.open_contacts_page()
         self.contact_cache = None
