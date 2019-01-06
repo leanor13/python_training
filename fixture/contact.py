@@ -1,4 +1,5 @@
 from model.contact import Contact
+import re
 
 
 class ContactHelper:
@@ -107,12 +108,13 @@ class ContactHelper:
     def open_contact_view_by_index(self, index):
         wd = self.app.wd
         self.open_contacts_page()
-        row = wd.find_element_by_name("entry")[index]
+        row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name("td")[6]
         cell.find_element_by_tag_name("a").click()
 
     def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd
+        self.open_contacts_page()
         self.open_contact_to_edit_by_index(index)
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
         lastname = wd.find_element_by_name("lastname").get_attribute("value")
@@ -125,6 +127,22 @@ class ContactHelper:
         faxphone = wd.find_element_by_name("fax").get_attribute("value")
         return Contact(first_name=firstname, last_name=lastname, contact_id=id, home_phone=homephone, mobile_phone=mobilephone,
                        work_phone=workphone, fax_phone=faxphone, middle_name=middlename, nick_name=nickname)
+
+    def get_contact_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_contact_view_by_index(index)
+        text = wd.find_element_by_id("content").text
+        homephone = re.search("H: (.*)", text).group(1)
+        workphone = re.search("W: (.*)", text).group(1)
+        mobilephone = re.search("M: (.*)", text).group(1)
+        faxphone = re.search("F: (.*)", text).group(1)
+        return Contact(home_phone=homephone, mobile_phone=mobilephone, work_phone=workphone, fax_phone=faxphone)
+
+
+
+
+
+
 
 
 
