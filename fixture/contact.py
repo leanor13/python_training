@@ -94,10 +94,12 @@ class ContactHelper:
                 last_name = cells[1].text
                 first_name = cells[2].text
                 id = row.find_element_by_name("selected[]").get_attribute("value")
-                all_phones = cells[5].text.splitlines()
+                all_phones = cells[5].text
+                address = cells[3].text
+                all_emails = cells[4].text
                 self.contact_cache.append(Contact(first_name=first_name, last_name=last_name, contact_id=id,
-                                                  home_phone= all_phones[0], mobile_phone= all_phones[1], work_phone= all_phones[2]))
-
+                                                  all_phones_from_home_page=all_phones,
+                                                  address=address, all_emails_from_home_page=all_emails))
         return list(self.contact_cache)
 
     def count(self):
@@ -125,8 +127,13 @@ class ContactHelper:
         workphone = wd.find_element_by_name("work").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         faxphone = wd.find_element_by_name("fax").get_attribute("value")
+        address = wd.find_element_by_name("address").get_attribute("value")
+        email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
         return Contact(first_name=firstname, last_name=lastname, contact_id=id, home_phone=homephone, mobile_phone=mobilephone,
-                       work_phone=workphone, fax_phone=faxphone, middle_name=middlename, nick_name=nickname)
+                       work_phone=workphone, fax_phone=faxphone, middle_name=middlename, nick_name=nickname,
+                       email=email, email2=email2, email3=email3, address=address)
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
