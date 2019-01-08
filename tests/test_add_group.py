@@ -19,7 +19,7 @@ def random_string_punctuation(prefix, maxlen):
 
 testdata = [Group(gr_name="", gr_header="", gr_footer="")] + [
     Group(gr_name=random_string("name", 10), gr_header=random_string("header", 20), gr_footer=random_string("footer", 20))
-    for i in range(5)
+    for i in range(2)
 ]
 
 
