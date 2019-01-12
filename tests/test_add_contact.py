@@ -15,7 +15,7 @@ def test_contact_creation(app, db, json_contacts, check_ui):
             return Contact(contact_id=cn.contact_id, first_name=re.sub(r'\s+', ' ', cn.first_name.strip()),
                            last_name=re.sub(r'\s+', ' ', cn.last_name.strip()))
 
-        ui_contacts = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
+        ui_contacts = sorted(app.contact.get_simple_contact_list(), key=Contact.id_or_max)
         db_contacts = sorted(map(clean, db.get_contact_list()), key=Contact.id_or_max)
 
         assert ui_contacts == db_contacts
