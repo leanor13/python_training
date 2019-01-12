@@ -106,9 +106,10 @@ class ContactHelper:
                 all_phones = cells[5].text
                 address = cells[3].text
                 all_emails = cells[4].text
-                self.contact_cache.append(Contact(first_name=first_name, last_name=last_name, contact_id=id,
-                                                  all_phones_from_home_page=all_phones,
-                                                  address=address, all_emails_from_home_page=all_emails))
+                self.contact_cache.append(Contact(first_name=first_name, last_name=last_name, contact_id=id))
+                                                 # ,
+                                                 # all_phones_from_home_page=all_phones,
+                                                 # address=address, all_emails_from_home_page=all_emails))
         return list(self.contact_cache)
 
     def count(self):

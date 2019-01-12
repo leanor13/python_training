@@ -35,10 +35,5 @@ class DbFixture:
             cursor.close()
         return cont_list
 
-
     def destroy(self):
         self.connection.close()
-
-
-
-
