@@ -14,8 +14,8 @@ except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
 
-n = 2
-f = "data/contacts.json"
+n = 1
+f = "data/contact_modiff.json"
 
 for o, a in opts:
     if o == "-n":
@@ -42,7 +42,7 @@ def random_phone(prefix, maxlen):
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
-testdata = [Contact(first_name="", middle_name="", last_name="", nick_name="", email="", address="")] + [
+testdata = [
     Contact(first_name=random_string("f_name", 10), last_name=random_string("l_name", 10),
             nick_name=random_string("n_name", 10), middle_name=random_string("m_name", 10),
             address=random_string("address", 30), email=random_email("email", 20), email2=random_email("email2", 20),
@@ -57,5 +57,4 @@ file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 with open(file, "w") as out:
     jsonpickle.set_encoder_options("json", indent=2)
     out.write(jsonpickle.encode(testdata))
-
 

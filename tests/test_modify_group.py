@@ -2,8 +2,8 @@ from model.group import Group
 import random
 
 
-def test_modify_group(app, db, json_groups_modiff, check_ui):
-    group = json_groups_modiff
+def test_modify_group(app, db, json_group_modiff, check_ui):
+    group = json_group_modiff
     if len(db.get_group_list()) == 0:
         app.group.create(Group(gr_name="Created for Group Modification Test"))
     old_groups = db.get_group_list()

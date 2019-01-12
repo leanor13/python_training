@@ -13,8 +13,8 @@ except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
 
-n = 3
-f = "data/groups_modiff.json"
+n = 1
+f = "data/group_modiff.json"
 
 for o, a in opts:
     if o == "-n":

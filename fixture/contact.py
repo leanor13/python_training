@@ -85,9 +85,22 @@ class ContactHelper:
         self.open_contacts_page()
         self.contact_cache = None
 
+    def edit_contact_by_id(self, id, contact):
+        wd = self.app.wd
+        self.open_contacts_page()
+        self.open_contact_to_edit_by_id(id)
+        self.fill_form(contact)
+        wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
+        self.open_contacts_page()
+        self.contact_cache = None
+
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
+
+    def open_contact_to_edit_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("a[href='edit.php?id=%s']" % id).click()
 
     def edit_first_contact(self, contact):
         wd = self.app.wd
@@ -175,8 +188,6 @@ class ContactHelper:
         mobilephone = re.search("M: (.*)", text).group(1)
         faxphone = re.search("F: (.*)", text).group(1)
         return Contact(home_phone=homephone, mobile_phone=mobilephone, work_phone=workphone, fax_phone=faxphone)
-
-
 
 
 
